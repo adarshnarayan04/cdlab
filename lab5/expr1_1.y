@@ -1,6 +1,6 @@
 %{
-#include <stdio.h>
-int yylex(void);
+#include <stdio.h> 
+int yylex(void); //yylex is lex function used to tokenisze the input( can see in only lex , we call while(yylex()))
 void yyerror(char *);
 %}
 

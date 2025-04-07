@@ -9,8 +9,8 @@ ws [ \t\n]+
 digit  [0-9]
 %%
 {ws}        ;
-{digit}+ {return NUM;}
-"+"      {return '+';}
+{digit}+ {return NUM;} //yacc not about about NUM , so need to add in %token NUM
+"+"      {return '+';} //if we return a single character ( then yacc know about it (as assco character) , no need to define in )
 "*"      {return '*';}
 "-"      {return '-';}
 "/"      {return '/';}

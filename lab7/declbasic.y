@@ -9,7 +9,8 @@
 %}
 
 /* YACC Declarations */
-
+//%union: This defines all possible types of values (yylval) that tokens or grammar rules can carry in the parser. 
+//Only one of these types is active at a time because it's a union.
 %union
 { 
   char* name;
@@ -17,10 +18,10 @@
   { char * type;
     int width;
   } typeattr; 
-}
+}//After defining the struct, it also declares a variable named typeattr of type struct attr.
 %token <name> ID 
 %token <typeattr> INT FLOAT
-%type <typeattr> type decl
+%type <typeattr> type decl //defining type of (decl and type) --> are of typeattr type
 
 %%
 

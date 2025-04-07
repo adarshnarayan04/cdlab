@@ -10,7 +10,7 @@ number {digit}+
 delimiter ,|;
 float [0-9]*[.][0-9]*e?E?[+]?[-]?[0-9]* // [.] here . have no value as metachracter insdie [] , so nned to handle , if outisde then /. to handle
 binary 0b[0-1]+|0B[0-1]+
-char ['][^\'][']   //can also be ['][^']['] --> inside [] metachracter has no value , so need to take care
+char ['][^\'][']   //can also be ['][^']['] --> inside [] metachracter has no value , so need to take care (but wriring [\] does not create any problem)
 hexa 0[xX][0-9a-fA-F]+
 				 
 %%

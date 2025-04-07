@@ -6,7 +6,7 @@
 
 %}
 
-%option yylineno
+%option yylineno //to know line number
 ws [ \t\n]+
 letter [A-Za-z]
 digit  [0-9]
@@ -28,5 +28,5 @@ id {letter}({letter}|{digit})*
 
 int yywrap(void)
 {
-  return 1;
+  return 1;// tells Flex "we're done, stop lexing"
 }
