@@ -1,0 +1,15 @@
+ Reduce NUM to F 
+ Reduce F to T 
+ Reduce NUM to F 
+ Reduce T * F to T 
+ Reduce T to E 
+ Reduce NUM to F 
+ Reduce F to T 
+ Reduce NUM to F 
+ Reduce T * F to T 
+ Reduce NUM to F 
+ Reduce T * F to T 
+ Reduced E + T to E 
+ Reduce NUM to F 
+ Reduce F to T 
+ Reduced E + T to E 

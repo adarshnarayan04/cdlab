@@ -1,0 +1,6 @@
+sum int
+count float
+root double
+x char
+i int
+x int

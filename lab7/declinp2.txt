@@ -1,0 +1,3 @@
+int a, sum, coefficient, a;
+int ch1, ch2, ch3;
+float fl1, ch2, fl2, fl3;

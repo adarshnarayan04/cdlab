@@ -1,0 +1,114 @@
+   0  $accept : prog $end
+
+   1  prog : dlist
+
+   2  dlist : dlist decl ';'
+   3        | decl ';'
+
+   4  decl : type ID
+   5       | decl ',' ID
+
+   6  type : INT
+   7       | FLOAT
+
+state 0
+	$accept : . prog $end  (0)
+
+	INT  shift 1
+	FLOAT  shift 2
+	.  error
+
+	prog  goto 3
+	type  goto 4
+	decl  goto 5
+	dlist  goto 6
+
+
+state 1
+	type : INT .  (6)
+
+	.  reduce 6
+
+
+state 2
+	type : FLOAT .  (7)
+
+	.  reduce 7
+
+
+state 3
+	$accept : prog . $end  (0)
+
+	$end  accept
+
+
+state 4
+	decl : type . ID  (4)
+
+	ID  shift 7
+	.  error
+
+
+state 5
+	dlist : decl . ';'  (3)
+	decl : decl . ',' ID  (5)
+
+	';'  shift 8
+	','  shift 9
+	.  error
+
+
+state 6
+	prog : dlist .  (1)
+	dlist : dlist . decl ';'  (2)
+
+	INT  shift 1
+	FLOAT  shift 2
+	$end  reduce 1
+
+	type  goto 4
+	decl  goto 10
+
+
+state 7
+	decl : type ID .  (4)
+
+	.  reduce 4
+
+
+state 8
+	dlist : decl ';' .  (3)
+
+	.  reduce 3
+
+
+state 9
+	decl : decl ',' . ID  (5)
+
+	ID  shift 11
+	.  error
+
+
+state 10
+	dlist : dlist decl . ';'  (2)
+	decl : decl . ',' ID  (5)
+
+	';'  shift 12
+	','  shift 9
+	.  error
+
+
+state 11
+	decl : decl ',' ID .  (5)
+
+	.  reduce 5
+
+
+state 12
+	dlist : dlist decl ';' .  (2)
+
+	.  reduce 2
+
+
+7 terminals, 5 nonterminals
+8 grammar rules, 13 states

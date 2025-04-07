@@ -1,0 +1,145 @@
+   0  $accept : I $end
+
+   1  I : I E '\n'
+   2    |
+
+   3  E : E '+' E
+   4    | E '*' E
+   5    | X
+
+   6  X : '(' E ')'
+   7    | NUM
+
+state 0
+	$accept : . I $end  (0)
+	I : .  (2)
+
+	.  reduce 2
+
+	I  goto 1
+
+
+state 1
+	$accept : I . $end  (0)
+	I : I . E '\n'  (1)
+
+	$end  accept
+	NUM  shift 2
+	'('  shift 3
+	.  error
+
+	E  goto 4
+	X  goto 5
+
+
+state 2
+	X : NUM .  (7)
+
+	.  reduce 7
+
+
+state 3
+	X : '(' . E ')'  (6)
+
+	NUM  shift 2
+	'('  shift 3
+	.  error
+
+	E  goto 6
+	X  goto 5
+
+
+state 4
+	I : I E . '\n'  (1)
+	E : E . '+' E  (3)
+	E : E . '*' E  (4)
+
+	'\n'  shift 7
+	'+'  shift 8
+	'*'  shift 9
+	.  error
+
+
+state 5
+	E : X .  (5)
+
+	.  reduce 5
+
+
+state 6
+	E : E . '+' E  (3)
+	E : E . '*' E  (4)
+	X : '(' E . ')'  (6)
+
+	'+'  shift 8
+	'*'  shift 9
+	')'  shift 10
+	.  error
+
+
+state 7
+	I : I E '\n' .  (1)
+
+	.  reduce 1
+
+
+state 8
+	E : E '+' . E  (3)
+
+	NUM  shift 2
+	'('  shift 3
+	.  error
+
+	E  goto 11
+	X  goto 5
+
+
+state 9
+	E : E '*' . E  (4)
+
+	NUM  shift 2
+	'('  shift 3
+	.  error
+
+	E  goto 12
+	X  goto 5
+
+
+state 10
+	X : '(' E ')' .  (6)
+
+	.  reduce 6
+
+
+11: shift/reduce conflict (shift 8, reduce 3) on '+'
+11: shift/reduce conflict (shift 9, reduce 3) on '*'
+state 11
+	E : E . '+' E  (3)
+	E : E '+' E .  (3)
+	E : E . '*' E  (4)
+
+	'+'  shift 8
+	'*'  shift 9
+	'\n'  reduce 3
+	')'  reduce 3
+
+
+12: shift/reduce conflict (shift 8, reduce 4) on '+'
+12: shift/reduce conflict (shift 9, reduce 4) on '*'
+state 12
+	E : E . '+' E  (3)
+	E : E . '*' E  (4)
+	E : E '*' E .  (4)
+
+	'+'  shift 8
+	'*'  shift 9
+	'\n'  reduce 4
+	')'  reduce 4
+
+
+State 11 contains 2 shift/reduce conflicts.
+State 12 contains 2 shift/reduce conflicts.
+
+
+8 terminals, 4 nonterminals
+8 grammar rules, 13 states

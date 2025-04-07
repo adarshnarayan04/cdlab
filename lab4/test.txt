@@ -1,0 +1,10 @@
+        .file "testprog1.c"
+        .text
+        .section        .rodata.str1.1,"aMS",@progbits,1
+.LC0:
+        .string " a[1] : %d \n"
+        .section        .text.startup,"ax",@progbits
+        .p2align 4
+        .globl  main
+        .type   main, @function
+main:

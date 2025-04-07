@@ -1,0 +1,210 @@
+   0  $accept : Dlist $end
+
+   1  Dlist : Dlist A ';'
+   2        |
+
+   3  A : ID '=' E
+
+   4  E : E '*' E
+   5    | E '/' E
+   6    | E '%' E
+   7    | E '+' E
+   8    | E '-' E
+   9    | ID
+  10    | INT
+
+state 0
+	$accept : . Dlist $end  (0)
+	Dlist : .  (2)
+
+	.  reduce 2
+
+	Dlist  goto 1
+
+
+state 1
+	$accept : Dlist . $end  (0)
+	Dlist : Dlist . A ';'  (1)
+
+	$end  accept
+	ID  shift 2
+	.  error
+
+	A  goto 3
+
+
+state 2
+	A : ID . '=' E  (3)
+
+	'='  shift 4
+	.  error
+
+
+state 3
+	Dlist : Dlist A . ';'  (1)
+
+	';'  shift 5
+	.  error
+
+
+state 4
+	A : ID '=' . E  (3)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 8
+
+
+state 5
+	Dlist : Dlist A ';' .  (1)
+
+	.  reduce 1
+
+
+state 6
+	E : ID .  (9)
+
+	.  reduce 9
+
+
+state 7
+	E : INT .  (10)
+
+	.  reduce 10
+
+
+state 8
+	A : ID '=' E .  (3)
+	E : E . '*' E  (4)
+	E : E . '/' E  (5)
+	E : E . '%' E  (6)
+	E : E . '+' E  (7)
+	E : E . '-' E  (8)
+
+	'+'  shift 9
+	'-'  shift 10
+	'*'  shift 11
+	'/'  shift 12
+	'%'  shift 13
+	';'  reduce 3
+
+
+state 9
+	E : E '+' . E  (7)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 14
+
+
+state 10
+	E : E '-' . E  (8)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 15
+
+
+state 11
+	E : E '*' . E  (4)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 16
+
+
+state 12
+	E : E '/' . E  (5)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 17
+
+
+state 13
+	E : E '%' . E  (6)
+
+	ID  shift 6
+	INT  shift 7
+	.  error
+
+	E  goto 18
+
+
+state 14
+	E : E . '*' E  (4)
+	E : E . '/' E  (5)
+	E : E . '%' E  (6)
+	E : E . '+' E  (7)
+	E : E '+' E .  (7)
+	E : E . '-' E  (8)
+
+	'*'  shift 11
+	'/'  shift 12
+	'%'  shift 13
+	'+'  reduce 7
+	'-'  reduce 7
+	';'  reduce 7
+
+
+state 15
+	E : E . '*' E  (4)
+	E : E . '/' E  (5)
+	E : E . '%' E  (6)
+	E : E . '+' E  (7)
+	E : E . '-' E  (8)
+	E : E '-' E .  (8)
+
+	'*'  shift 11
+	'/'  shift 12
+	'%'  shift 13
+	'+'  reduce 8
+	'-'  reduce 8
+	';'  reduce 8
+
+
+state 16
+	E : E . '*' E  (4)
+	E : E '*' E .  (4)
+	E : E . '/' E  (5)
+	E : E . '%' E  (6)
+	E : E . '+' E  (7)
+	E : E . '-' E  (8)
+
+	.  reduce 4
+
+
+state 17
+	E : E . '*' E  (4)
+	E : E . '/' E  (5)
+	E : E '/' E .  (5)
+	E : E . '%' E  (6)
+	E : E . '+' E  (7)
+	E : E . '-' E  (8)
+
+	.  reduce 5
+
+
+state 18
+	E : E . '*' E  (4)
+	E : E . '/' E  (5)
+	E : E . '%' E  (6)
+	E : E '%' E .  (6)
+	E : E . '+' E  (7)
+	E : E . '-' E  (8)
+
+	.  reduce 6
+
+
+12 terminals, 4 nonterminals
+11 grammar rules, 19 states
