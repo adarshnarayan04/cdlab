@@ -1,0 +1,252 @@
+Terminals unused in grammar
+
+    REAL
+
+
+Grammar
+
+    0 $accept: S $end
+
+    1 S: ID '=' E ';'
+
+    2 E: E '+' F
+    3  | E '-' F
+    4  | F
+
+    5 F: F '*' T
+    6  | F '/' T
+    7  | F '%' T
+    8  | T
+
+    9 T: ID
+   10  | INT
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '%' (37) 7
+    '*' (42) 5
+    '+' (43) 2
+    '-' (45) 3
+    '/' (47) 6
+    ';' (59) 1
+    '=' (61) 1
+    error (256)
+    ID <name> (258) 1 9
+    INT <intval> (259) 10
+    REAL <realval> (260)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (13)
+        on left: 0
+    S (14)
+        on left: 1
+        on right: 0
+    E <twoattr> (15)
+        on left: 2 3 4
+        on right: 1 2 3
+    F <twoattr> (16)
+        on left: 5 6 7 8
+        on right: 2 3 4 5 6 7
+    T <twoattr> (17)
+        on left: 9 10
+        on right: 5 6 7 8
+
+
+State 0
+
+    0 $accept: • S $end
+
+    ID  shift, and go to state 1
+
+    S  go to state 2
+
+
+State 1
+
+    1 S: ID • '=' E ';'
+
+    '='  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: S • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 S: ID '=' • E ';'
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    E  go to state 7
+    F  go to state 8
+    T  go to state 9
+
+
+State 4
+
+    0 $accept: S $end •
+
+    $default  accept
+
+
+State 5
+
+    9 T: ID •
+
+    $default  reduce using rule 9 (T)
+
+
+State 6
+
+   10 T: INT •
+
+    $default  reduce using rule 10 (T)
+
+
+State 7
+
+    1 S: ID '=' E • ';'
+    2 E: E • '+' F
+    3  | E • '-' F
+
+    '+'  shift, and go to state 10
+    '-'  shift, and go to state 11
+    ';'  shift, and go to state 12
+
+
+State 8
+
+    4 E: F •
+    5 F: F • '*' T
+    6  | F • '/' T
+    7  | F • '%' T
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+    '%'  shift, and go to state 15
+
+    $default  reduce using rule 4 (E)
+
+
+State 9
+
+    8 F: T •
+
+    $default  reduce using rule 8 (F)
+
+
+State 10
+
+    2 E: E '+' • F
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    F  go to state 16
+    T  go to state 9
+
+
+State 11
+
+    3 E: E '-' • F
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    F  go to state 17
+    T  go to state 9
+
+
+State 12
+
+    1 S: ID '=' E ';' •
+
+    $default  reduce using rule 1 (S)
+
+
+State 13
+
+    5 F: F '*' • T
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    T  go to state 18
+
+
+State 14
+
+    6 F: F '/' • T
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    T  go to state 19
+
+
+State 15
+
+    7 F: F '%' • T
+
+    ID   shift, and go to state 5
+    INT  shift, and go to state 6
+
+    T  go to state 20
+
+
+State 16
+
+    2 E: E '+' F •
+    5 F: F • '*' T
+    6  | F • '/' T
+    7  | F • '%' T
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+    '%'  shift, and go to state 15
+
+    $default  reduce using rule 2 (E)
+
+
+State 17
+
+    3 E: E '-' F •
+    5 F: F • '*' T
+    6  | F • '/' T
+    7  | F • '%' T
+
+    '*'  shift, and go to state 13
+    '/'  shift, and go to state 14
+    '%'  shift, and go to state 15
+
+    $default  reduce using rule 3 (E)
+
+
+State 18
+
+    5 F: F '*' T •
+
+    $default  reduce using rule 5 (F)
+
+
+State 19
+
+    6 F: F '/' T •
+
+    $default  reduce using rule 6 (F)
+
+
+State 20
+
+    7 F: F '%' T •
+
+    $default  reduce using rule 7 (F)

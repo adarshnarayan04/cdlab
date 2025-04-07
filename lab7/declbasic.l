@@ -23,7 +23,7 @@ id {letter}({letter}|{digit})*
              strcpy(yylval.name, yytext); return ID;}
 ";"         {return ';';}
 ","         {return ',';;}
-.           {printf("Unrecognized Character : %s \n", yytext);}
+.           {printf("Unrecognized Character : %s \n", yytext);} //yyerror not used
 %%
 
 int yywrap(void)

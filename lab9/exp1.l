@@ -20,5 +20,5 @@ int [0-9]+
 "*"       { return '*'; }
 "/"       { return '/'; }
 "%"       { return '%'; }
-.         ;
+.         ; //yyerror not used ( can used here {yyerror("Invalid \n");})
 %%
