@@ -8,9 +8,9 @@ digit  [0-9]
 octalnum 0[0-7]+
 number {digit}+
 delimiter ,|;
-float [0-9]*[.][0-9]*e?E?[+]?[-]?[0-9]*
+float [0-9]*[.][0-9]*e?E?[+]?[-]?[0-9]* // [.] here . have no value as metachracter insdie [] , so nned to handle , if outisde then /. to handle
 binary 0b[0-1]+|0B[0-1]+
-char ['][^\'][']
+char ['][^\'][']   //can also be ['][^']['] --> inside [] metachracter has no value , so need to take care
 hexa 0[xX][0-9a-fA-F]+
 				 
 %%
